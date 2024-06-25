@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kan_lazim/screens/login.dart';
+import 'package:kan_lazim/screens/doners_list/doners_list.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,10 +13,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.grey),
         useMaterial3: true,
       ),
-      home: const Login(),
+      debugShowCheckedModeBanner: false,
+      home: const BloodDoners(),
     );
   }
 }
