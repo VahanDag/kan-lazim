@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kan_lazim/core/colors.dart';
+import 'package:kan_lazim/screens/blood_request/blood_request.dart';
+import 'package:kan_lazim/screens/doners_list/doners_list.dart';
 import 'package:kan_lazim/screens/home/home_page.dart';
-import 'package:kan_lazim/screens/intro/intro_screen.dart';
 import 'package:kan_lazim/screens/profile/profile.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -16,8 +17,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   final List<Widget> _pages = [
     const HomePage(),
-    const IntroScreen(),
-    const IntroScreen(),
+    const BloodDoners(),
+    const BloodRequest(),
     const ProfilePage(),
   ];
 
