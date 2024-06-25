@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kan_lazim/core/app_routes_name.dart';
+import 'package:kan_lazim/screens/home/bottom_bar.dart';
 import 'package:kan_lazim/screens/intro/intro_screen.dart';
-import 'package:kan_lazim/screens/login.dart';
 
 class AppRoutes {
   //bu kısımda sayfaların yönlendirme işlemleri yapılır
@@ -11,7 +11,7 @@ class AppRoutes {
         return _materialRoute(const IntroScreen()); //burda anasayfaya yönlendirme işlemi yapılıyor
 
       case AppRouteNames.login: //burda şu işlemi yapıyoruz eğer login sayfası varsa login sayfasına yönlendiriyoruz
-        return _materialRoute(const Login());
+        return _materialRoute(const BottomNavBar());
 
       default: //burda şunu yapıyoruz eğer bir sayfa yoksa anasayfaya yönlendiriyoruz
         return _materialRoute(const IntroScreen());

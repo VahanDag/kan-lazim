@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 mixin PaddingBorderConstant {
   // Border Radius
-  static final BorderRadius borderRadiusLow = BorderRadius.circular(5);
-  static final BorderRadius borderRadius = BorderRadius.circular(10);
-  static final BorderRadius borderRadiusMedium = BorderRadius.circular(15);
-  static final BorderRadius borderRadiusHigh = BorderRadius.circular(20);
+  static final BorderRadiusGeometry borderRadiusLow = BorderRadius.circular(5);
+  static final BorderRadiusGeometry borderRadius = BorderRadius.circular(10);
+  static final BorderRadiusGeometry borderRadiusMedium = BorderRadius.circular(15);
+  static final BorderRadiusGeometry borderRadiusHigh = BorderRadius.circular(20);
 
   // Padding all
   static const EdgeInsetsGeometry paddingAllLow = EdgeInsets.all(5);

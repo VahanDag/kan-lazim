@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kan_lazim/core/routes.dart';
 import 'package:kan_lazim/screens/home/bottom_bar.dart';
-import 'package:kan_lazim/screens/home/home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,11 +14,10 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.grey),
         useMaterial3: true,
       ),
       home: const BottomNavBar(),
-      onGenerateRoute: AppRoutes.onGenerateRoutes,
     );
   }
 }
