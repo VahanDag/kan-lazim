@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kan_lazim/core/custom_button.dart';
 
 void main() {
   runApp(const MyApp());
@@ -105,6 +106,12 @@ class _MyHomePageState extends State<MyHomePage> {
           // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            CustomMainButton(
+              buttonWidth: 0.75,
+              isOutline: true,
+              text: "sdkml",
+              onPressed: () {},
+            ),
             const Text(
               'You have pushed the button this many times:',
             ),
