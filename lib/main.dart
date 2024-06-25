@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kan_lazim/core/custom_button.dart';
-import 'package:kan_lazim/screens/intro_screen.dart';
+import 'package:kan_lazim/screens/home/bottom_bar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,11 +13,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.grey),
         useMaterial3: true,
       ),
-      home: const IntroScreen(),
+      home: const BottomNavBar(),
     );
   }
 }

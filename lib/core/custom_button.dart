@@ -4,17 +4,19 @@ import 'package:kan_lazim/core/colors.dart';
 import 'package:kan_lazim/core/extensions.dart';
 
 class CustomMainButton extends StatefulWidget {
-  const CustomMainButton({
+  CustomMainButton({
     super.key,
     required this.onPressed,
     required this.text,
     this.isOutline,
+    this.margin,
     required this.buttonWidth,
   });
   final void Function() onPressed;
   final String text;
   final bool? isOutline;
   final double buttonWidth;
+  EdgeInsetsGeometry? margin;
 
   @override
   State<CustomMainButton> createState() => _CustomMainButtonState();
@@ -23,7 +25,8 @@ class CustomMainButton extends StatefulWidget {
 class _CustomMainButtonState extends State<CustomMainButton> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
+        margin: widget.margin,
         height: 50,
         width: context.deviceWidth * widget.buttonWidth,
         child: (widget.isOutline ?? false)
