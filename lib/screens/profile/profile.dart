@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'package:kan_lazim/core/colors.dart';
 import 'package:kan_lazim/core/custom_button.dart';
 import 'package:kan_lazim/core/extensions.dart';
+import 'package:kan_lazim/core/padding_borders.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -19,6 +19,7 @@ class _ProfilePageState extends State<ProfilePage> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Stack(
+            clipBehavior: Clip.none,
             children: [
               Container(
                 width: ContextExtension(context).deviceWidth,
@@ -49,11 +50,14 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ],
           ),
-          const Text(
-            'Hasan Taha Künkül',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
+          const Padding(
+            padding: PaddingBorderConstant.paddingOnlyTopHigh,
+            child: Text(
+              'Hasan Taha Künkül',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           const Divider(

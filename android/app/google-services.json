@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "156190912929",
+    "project_id": "kan-lazim-75cd7",
+    "storage_bucket": "kan-lazim-75cd7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:156190912929:android:b9fb08f57f6fb39f609be0",
+        "android_client_info": {
+          "package_name": "com.example.kan_lazim"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEdPS2encs998rEwEY7XpiskECVht-XMk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
