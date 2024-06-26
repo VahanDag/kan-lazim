@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:kan_lazim/firebase_options.dart';
 import 'package:kan_lazim/screens/auth/login.dart';
 import 'package:kan_lazim/screens/home/bottom_bar.dart';
-import 'package:kan_lazim/services/firebase_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
