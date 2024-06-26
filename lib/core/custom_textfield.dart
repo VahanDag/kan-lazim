@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:kan_lazim/core/extensions.dart';
 
@@ -6,9 +7,13 @@ class CustomTextField extends StatefulWidget {
     super.key,
     required this.labelText,
     this.isPassword,
+    required this.controller,
+    this.validator,
   });
   final String labelText;
   final bool? isPassword;
+  final TextEditingController controller;
+  final String? Function(String? value)? validator;
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -18,7 +23,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
   bool _isSecure = true;
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
+      validator: widget.validator,
+      controller: widget.controller,
       obscureText: (widget.isPassword ?? false) ? (_isSecure ? true : false) : false,
       decoration: InputDecoration(
           suffixIcon: (widget.isPassword ?? false)
@@ -32,8 +39,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
                     constraints: BoxConstraints.loose(Size.zero),
                     alignment: Alignment.center,
                     child: AnimatedCrossFade(
-                        firstChild: const Icon(Icons.visibility),
-                        secondChild: const Icon(Icons.visibility_off_outlined),
+                        firstChild: const Icon(Icons.visibility_off_outlined),
+                        secondChild: const Icon(Icons.visibility),
                         crossFadeState: _isSecure ? CrossFadeState.showFirst : CrossFadeState.showSecond,
                         duration: const Duration(milliseconds: 350)),
                   ),

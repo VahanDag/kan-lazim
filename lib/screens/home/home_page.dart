@@ -1,11 +1,15 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:kan_lazim/core/colors.dart';
 import 'package:kan_lazim/core/extensions.dart';
-import 'package:kan_lazim/screens/home/bottom_bar.dart';
+import 'package:kan_lazim/models/user_model.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
+  const HomePage({
+    super.key,
+    required this.mdoel,
+  });
+  final UserModel mdoel;
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -34,19 +38,19 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            const SizedBox(
+            SizedBox(
               child: Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
                 child: Row(
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.location_on,
                       color: ColorsConstant.location,
                       size: 40,
                     ),
                     Text(
-                      'Ankara',
-                      style: TextStyle(fontSize: 20, color: ColorsConstant.locationadres, fontWeight: FontWeight.w500),
+                      widget.mdoel.city ?? "İstanbul",
+                      style: const TextStyle(fontSize: 20, color: ColorsConstant.locationadres, fontWeight: FontWeight.w500),
                     ),
                   ],
                 ),
@@ -103,7 +107,8 @@ class _HomePageState extends State<HomePage> {
                             ),
                             const Text(
                               'Kan Bankası',
-                              style: TextStyle(fontSize: 20, color: ColorsConstant.locationadres, fontWeight: FontWeight.w500),
+                              style:
+                                  TextStyle(fontSize: 20, color: ColorsConstant.locationadres, fontWeight: FontWeight.w500),
                             ),
                           ],
                         ),
@@ -124,7 +129,8 @@ class _HomePageState extends State<HomePage> {
                             ),
                             const Text(
                               'Hastane',
-                              style: TextStyle(fontSize: 20, color: ColorsConstant.locationadres, fontWeight: FontWeight.w500),
+                              style:
+                                  TextStyle(fontSize: 20, color: ColorsConstant.locationadres, fontWeight: FontWeight.w500),
                             ),
                           ],
                         ),

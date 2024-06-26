@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:kan_lazim/core/colors.dart';
-import 'package:kan_lazim/core/constants.dart';
 import 'package:kan_lazim/core/custom_button.dart';
 import 'package:kan_lazim/core/enums.dart';
 import 'package:kan_lazim/core/extensions.dart';
@@ -142,7 +141,7 @@ class _BloodRequestState extends State<BloodRequest> {
                                   isScrollControlled: true,
                                   context: context,
                                   builder: (context) {
-                                    return _SearchCityAndState(
+                                    return SearchCityAndState(
                                       isSearchCity: true,
                                       selectedDistrict: (selectedDistrict) {},
                                       selectedCity: (selectedCity) => setState(() {
@@ -165,7 +164,7 @@ class _BloodRequestState extends State<BloodRequest> {
                                 isScrollControlled: true,
                                 context: context,
                                 builder: (context) {
-                                  return _SearchCityAndState(
+                                  return SearchCityAndState(
                                     isSearchCity: false,
                                     city: _selectedCity,
                                     selectedDistrict: (selectedDistrict) {
