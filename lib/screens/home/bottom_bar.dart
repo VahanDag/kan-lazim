@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:kan_lazim/core/colors.dart';
 import 'package:kan_lazim/models/user_model.dart';
@@ -5,10 +6,15 @@ import 'package:kan_lazim/screens/blood_request/blood_request.dart';
 import 'package:kan_lazim/screens/doners_list/doners_list.dart';
 import 'package:kan_lazim/screens/home/home_page.dart';
 import 'package:kan_lazim/screens/profile/profile.dart';
-import 'package:kan_lazim/services/firebase_service.dart';
 
 class BottomNavBar extends StatefulWidget {
-  const BottomNavBar({super.key});
+  const BottomNavBar({
+    super.key,
+    required this.userModel,
+    this.pageIndex,
+  });
+  final UserModel userModel;
+  final int? pageIndex;
 
   @override
   State<BottomNavBar> createState() => _BottomNavBarState();
@@ -16,26 +22,22 @@ class BottomNavBar extends StatefulWidget {
 
 class _BottomNavBarState extends State<BottomNavBar> {
   int _currentIndex = 0;
-  UserModel _userModel = UserModel();
 
   late final List<Widget> _pages;
   @override
   void initState() {
-    getModel();
+    if (widget.pageIndex != null) {
+      _currentIndex = widget.pageIndex!;
+    }
     _pages = [
-      HomePage(
-        mdoel: _userModel,
+      HomePage(mdoel: widget.userModel),
+      BloodDoners(model: widget.userModel),
+      BloodRequest(userModel: widget.userModel),
+      ProfilePage(
+        model: widget.userModel,
       ),
-      const BloodDoners(),
-      const BloodRequest(),
-      const ProfilePage(),
     ];
     super.initState();
-  }
-
-  Future<void> getModel() async {
-    _userModel = await FirebaseService().getUser();
-    setState(() {});
   }
 
   void _onItemTapped(int index) {

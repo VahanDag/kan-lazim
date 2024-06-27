@@ -1,8 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:kan_lazim/firebase_options.dart';
-import 'package:kan_lazim/screens/auth/login.dart';
-import 'package:kan_lazim/screens/home/bottom_bar.dart';
+import 'package:kan_lazim/screens/splash/splash.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +23,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.grey),
         useMaterial3: true,
       ),
-      home: FirebaseService().userControll() ? const BottomNavBar() : const Login(),
+      home: const Splash(),
     );
   }
 }

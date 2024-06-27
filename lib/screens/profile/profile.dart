@@ -1,13 +1,20 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:kan_lazim/core/colors.dart';
 import 'package:kan_lazim/core/custom_button.dart';
 import 'package:kan_lazim/core/extensions.dart';
 import 'package:kan_lazim/core/padding_borders.dart';
+import 'package:kan_lazim/models/user_model.dart';
 import 'package:kan_lazim/screens/auth/login.dart';
+import 'package:kan_lazim/screens/my_reguest/my_request.dart';
 import 'package:kan_lazim/services/firebase_service.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+  const ProfilePage({
+    super.key,
+    required this.model,
+  });
+  final UserModel model;
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -52,11 +59,11 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ],
           ),
-          const Padding(
+          Padding(
             padding: PaddingBorderConstant.paddingOnlyTopHigh,
             child: Text(
-              'Hasan Taha Künkül',
-              style: TextStyle(
+              widget.model.name ?? "",
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
@@ -70,20 +77,26 @@ class _ProfilePageState extends State<ProfilePage> {
           SizedBox(
             width: ContextExtension(context).deviceWidth * 0.9,
             height: ContextExtension(context).deviceHeight * 0.2,
-            child: const Card(
+            child: Card(
                 shadowColor: ColorsConstant.redFrame,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Profilewidget(icon: Icons.location_on, text: 'İl/İlçe:', text2: 'İstanbul/ Üsküdar'),
-                    Profilewidget(icon: Icons.email, text: 'Email:', text2: 'tahaknkl2323@gmail.com'),
-                    Profilewidget(icon: Icons.water_drop_rounded, text: "Kan Grubu", text2: "Kan Grubu Girilmedi"),
+                    Profilewidget(
+                        icon: Icons.location_on, text: 'İl/İlçe:', text2: '${widget.model.city}/ ${widget.model.district}'),
+                    Profilewidget(icon: Icons.email, text: 'Email:', text2: widget.model.email ?? ""),
+                    Profilewidget(
+                        icon: Icons.water_drop_rounded,
+                        text: "Kan Grubu",
+                        text2: widget.model.bloodType ?? "Kan Grubu Girilmedi"),
                   ],
                 )),
           ),
           const SizedBox(height: 10),
           CustomMainButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const MyRequest()));
+            },
             text: "Taleplerim",
             buttonWidth: 0.9,
             isOutline: true,

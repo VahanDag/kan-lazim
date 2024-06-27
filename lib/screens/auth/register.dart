@@ -160,7 +160,8 @@ class _RegisterState extends State<Register> {
                             final create = await FirebaseService()
                                 .createUser(model: userModel, password: _passwordController.text.trim());
                             if (create) {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => const BottomNavBar()));
+                              Navigator.push(
+                                  context, MaterialPageRoute(builder: (context) => BottomNavBar(userModel: userModel)));
                             } else {
                               const snackBar = SnackBar(
                                   backgroundColor: ColorsConstant.red, content: Center(child: Text("Birşeyler ters gitti")));

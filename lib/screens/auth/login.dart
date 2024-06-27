@@ -85,8 +85,9 @@ class _LoginState extends State<Login> {
                               .login(email: _emailController.text.trim(), password: _passwordController.text.trim());
 
                           if (login) {
+                            final getModel = await FirebaseService().getUser();
                             Navigator.pushReplacement(
-                                context, MaterialPageRoute(builder: (context) => const BottomNavBar()));
+                                context, MaterialPageRoute(builder: (context) => BottomNavBar(userModel: getModel)));
                           } else {
                             const snackBar = SnackBar(
                                 backgroundColor: ColorsConstant.red,
