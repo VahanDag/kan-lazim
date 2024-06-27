@@ -3,6 +3,8 @@ import 'package:kan_lazim/core/colors.dart';
 import 'package:kan_lazim/core/custom_button.dart';
 import 'package:kan_lazim/core/extensions.dart';
 import 'package:kan_lazim/core/padding_borders.dart';
+import 'package:kan_lazim/screens/auth/login.dart';
+import 'package:kan_lazim/services/firebase_service.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -87,7 +89,10 @@ class _ProfilePageState extends State<ProfilePage> {
             isOutline: true,
           ),
           CustomMainButton(
-            onPressed: () {},
+            onPressed: () async {
+              await FirebaseService().logout();
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Login()));
+            },
             text: "Çıkış Yap",
             buttonWidth: 0.9,
             isOutline: false,
