@@ -1,16 +1,28 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kan_lazim/core/colors.dart';
 import 'package:kan_lazim/core/custom_button.dart';
+import 'package:kan_lazim/core/custom_snackbar.dart';
 import 'package:kan_lazim/core/enums.dart';
 import 'package:kan_lazim/core/extensions.dart';
 import 'package:kan_lazim/core/padding_borders.dart';
+import 'package:kan_lazim/core/useful_functions.dart';
+import 'package:kan_lazim/models/request_model.dart';
+import 'package:kan_lazim/models/user_model.dart';
 import 'package:kan_lazim/screens/global_widgets.dart';
+import 'package:kan_lazim/screens/home/bottom_bar.dart';
+import 'package:kan_lazim/services/firebase_service.dart';
 
 part 'request_widgets.dart';
 
 class BloodRequest extends StatefulWidget {
-  const BloodRequest({super.key});
+  const BloodRequest({
+    super.key,
+    required this.userModel,
+  });
+  final UserModel userModel;
 
   @override
   State<BloodRequest> createState() => _BloodRequestState();
@@ -28,11 +40,11 @@ class _BloodRequestState extends State<BloodRequest> {
   final List<String> _bloodTypes = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', '0+', '0-'];
   String? _selectedCity;
   String? _selectedDistrict;
-  late final _nameController;
-  late final _bloodUnitController;
-  late final _hospitalController;
-  late final _titleController;
-  late final _descriptionController;
+  late final TextEditingController _nameController;
+  late final TextEditingController _bloodUnitController;
+  late final TextEditingController _hospitalController;
+  late final TextEditingController _titleController;
+  late final TextEditingController _descriptionController;
 
   final GlobalKey<FormState> _formKey = GlobalKey();
 
@@ -62,7 +74,7 @@ class _BloodRequestState extends State<BloodRequest> {
                       style: context.textTheme.titleLarge?.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
                     ),
                     subtitle: Text(
-                      "Kan ihtiyacını duyurmak için formu doldur",
+                      "Kan ihtiyacını duyurmak için formu doldurunuz",
                       style: context.textTheme.titleSmall?.copyWith(color: Colors.white),
                     ),
                   ),
@@ -186,7 +198,43 @@ class _BloodRequestState extends State<BloodRequest> {
                           fieldTitle: "Açıklama", field: _textField(maxLines: 4, controller: _descriptionController)),
                       CustomMainButton(
                           margin: PaddingBorderConstant.paddingVerticalHigh,
-                          onPressed: () {},
+                          onPressed: () async {
+                            if (_formKey.currentState?.validate() ?? false) {
+                              if (_selectedCity != null && _selectedDistrict != null) {
+                                if (_selectedBloodType != null) {
+                                  final model = RequestModel(
+                                      name: trimToText(_nameController.text),
+                                      bloodType: _selectedBloodType,
+                                      unitAmount: double.tryParse(trimToText(_bloodUnitController.text)),
+                                      ugency: _selectedUgency.name,
+                                      city: _selectedCity,
+                                      description: trimToText(_descriptionController.text),
+                                      district: _selectedDistrict,
+                                      hospital: trimToText(_hospitalController.text),
+                                      isFind: false,
+                                      requestOwner: FirebaseAuth.instance.currentUser?.uid,
+                                      timestamp: Timestamp.now(),
+                                      title: trimToText(_titleController.text));
+                                  final saveForm = await FirebaseService().requestToForm(model);
+                                  if (saveForm) {
+                                    customSnackBar(context: context, title: "Başarıyla yayınlandı", isNegative: false);
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => BottomNavBar(userModel: widget.userModel, pageIndex: 1),
+                                        ));
+                                  } else {
+                                    customSnackBar(context: context, title: "Bir sorun oluştu", isNegative: true);
+                                  }
+                                } else {
+                                  customSnackBar(
+                                      context: context, title: "İhtiyaç duyulan kan grubunu seçiniz", isNegative: true);
+                                }
+                              } else {
+                                customSnackBar(context: context, title: "Lütfen il ve ilçe seçiniz", isNegative: true);
+                              }
+                            }
+                          },
                           text: "Yayınla",
                           buttonWidth: 0.75)
                     ],

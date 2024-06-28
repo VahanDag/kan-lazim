@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:kan_lazim/core/colors.dart';
 import 'package:kan_lazim/core/extensions.dart';
-import 'package:kan_lazim/core/padding_borders.dart';
 import 'package:kan_lazim/screens/auth/register.dart';
 
 Align authTitle(BuildContext context, String title) {
@@ -17,32 +16,7 @@ Align authTitle(BuildContext context, String title) {
 
 Row _authDivider() {
   return const Row(
-    children: [
-      Expanded(child: Divider()),
-      Padding(
-        padding: PaddingBorderConstant.paddingHorizontal,
-        child: Text("VEYA"),
-      ),
-      Expanded(child: Divider())
-    ],
-  );
-}
-
-Card _authGoogle(BuildContext context) {
-  return Card(
-    child: Container(
-      padding: PaddingBorderConstant.paddingAllLow,
-      width: context.deviceWidth * 0.6,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Image.asset(height: 40, width: 40, "assets/images/google.webp"),
-          const Text(
-            "Google ile giriş yap",
-          )
-        ],
-      ),
-    ),
+    children: [Expanded(child: Divider()), Expanded(child: Divider())],
   );
 }
 
@@ -60,7 +34,6 @@ class AuthWithGoogle extends StatelessWidget {
         const SizedBox(height: 40),
         _authDivider(),
         const SizedBox(height: 20),
-        _authGoogle(context),
         isRegisterPage ? _loginButton(context) : _createAccount(context)
       ],
     );

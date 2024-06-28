@@ -77,6 +77,7 @@ class _RegisterState extends State<Register> {
                       child: Column(
                         children: [
                           CustomTextField(
+                            keyboardType: TextInputType.emailAddress,
                             labelText: "E-posta",
                             controller: _emailController,
                             validator: (value) {
@@ -157,20 +158,17 @@ class _RegisterState extends State<Register> {
                                 district: _selectedDistrict,
                                 email: _emailController.text.trim(),
                                 name: _nameController.text.trim());
-                            final create = await FirebaseService()
-                                .createUser(model: userModel, password: _passwordController.text.trim());
+                            final create = await FirebaseService().createUser(model: userModel, password: _passwordController.text.trim());
                             if (create) {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => const BottomNavBar()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => BottomNavBar(userModel: userModel)));
                             } else {
-                              const snackBar = SnackBar(
-                                  backgroundColor: ColorsConstant.red, content: Center(child: Text("Birşeyler ters gitti")));
+                              const snackBar = SnackBar(backgroundColor: ColorsConstant.red, content: Center(child: Text("Birşeyler ters gitti")));
 
                               ScaffoldMessenger.of(context).showSnackBar(snackBar);
                             }
                           } else {
-                            const snackBar = SnackBar(
-                                backgroundColor: ColorsConstant.red,
-                                content: Center(child: Text("Lütfen bir İl ve ilçe seçin")));
+                            const snackBar =
+                                SnackBar(backgroundColor: ColorsConstant.red, content: Center(child: Text("Lütfen bir İl ve ilçe seçin")));
 
                             ScaffoldMessenger.of(context).showSnackBar(snackBar);
                           }
@@ -188,8 +186,7 @@ class _RegisterState extends State<Register> {
     );
   }
 
-  Widget _selectCityAndDistrict(
-      {required String title, required Function(String selectedItem) selectedCityOrDistrict, String? city}) {
+  Widget _selectCityAndDistrict({required String title, required Function(String selectedItem) selectedCityOrDistrict, String? city}) {
     final bool isCity = title.toLowerCase().contains("ilçe") == false;
     return GestureDetector(
       onTap: () {

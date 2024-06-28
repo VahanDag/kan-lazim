@@ -67,7 +67,7 @@ class SearchCityAndStateState extends State<SearchCityAndState> {
 
   void filterDistricts() {
     final query = _searchController.text.toLowerCase();
-    print("quesry: $query");
+    debugPrint("quesry: $query");
     setState(() {
       _filteredDistricts =
           ProjectConstants.cityDistricts[widget.city]!.where((district) => district.toLowerCase().contains(query)).toList();

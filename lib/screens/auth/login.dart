@@ -47,8 +47,9 @@ class _LoginState extends State<Login> {
                 children: [
                   const SizedBox(height: 90),
                   authTitle(context, "Hoşgeldin!"),
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 50),
                   CustomTextField(
+                    keyboardType: TextInputType.emailAddress,
                     validator: (value) {
                       return isValidEmail(value);
                     },
@@ -69,28 +70,25 @@ class _LoginState extends State<Login> {
                     labelText: "Şifre",
                     isPassword: true,
                   ),
-                  Align(
-                      alignment: Alignment.centerRight,
-                      child: TextButton(
-                          onPressed: () {},
-                          child: Text(
-                            "Şifremi unuttum?",
-                            style: context.textTheme.titleSmall?.copyWith(color: ColorsConstant.redFrame),
-                          ))),
-                  const SizedBox(height: 30),
+                  // Align(
+                  //     alignment: Alignment.centerRight,
+                  //     child: TextButton(
+                  //         onPressed: () {},
+                  //         child: Text(
+                  //           "Şifremi unuttum?",
+                  //           style: context.textTheme.titleSmall?.copyWith(color: ColorsConstant.redFrame),
+                  //         ))),
+                  const SizedBox(height: 50),
                   CustomMainButton(
                       onPressed: () async {
                         if (_globalKey.currentState?.validate() ?? false) {
-                          final login = await FirebaseService()
-                              .login(email: _emailController.text.trim(), password: _passwordController.text.trim());
+                          final login = await FirebaseService().login(email: _emailController.text.trim(), password: _passwordController.text.trim());
 
                           if (login) {
-                            Navigator.pushReplacement(
-                                context, MaterialPageRoute(builder: (context) => const BottomNavBar()));
+                            final getModel = await FirebaseService().getUser();
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BottomNavBar(userModel: getModel)));
                           } else {
-                            const snackBar = SnackBar(
-                                backgroundColor: ColorsConstant.red,
-                                content: Center(child: Text("Şifre veya e-posta yanlış")));
+                            const snackBar = SnackBar(backgroundColor: ColorsConstant.red, content: Center(child: Text("Şifre veya e-posta yanlış")));
 
                             ScaffoldMessenger.of(context).showSnackBar(snackBar);
                           }
@@ -98,6 +96,7 @@ class _LoginState extends State<Login> {
                       },
                       text: "Giriş Yap",
                       buttonWidth: 0.75),
+                  const SizedBox(height: 20),
                   const AuthWithGoogle(isRegisterPage: false)
                 ],
               ),

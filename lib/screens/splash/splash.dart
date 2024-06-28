@@ -1,5 +1,10 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
+
+import 'package:flutter/material.dart';
+import 'package:kan_lazim/models/user_model.dart';
+import 'package:kan_lazim/screens/auth/login.dart';
+import 'package:kan_lazim/screens/home/bottom_bar.dart';
+import 'package:kan_lazim/services/firebase_service.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});
@@ -10,19 +15,34 @@ class Splash extends StatefulWidget {
 
 class _SplashState extends State<Splash> {
   double _opacity = 0.0;
+  UserModel? _model;
 
   @override
   void initState() {
     super.initState();
-    _startAnimation();
+    _startAnimationAndFetchData().whenComplete(
+      () {
+        if (_model != null) {
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BottomNavBar(userModel: _model!)));
+        } else {
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Login()));
+        }
+      },
+    );
   }
 
-  void _startAnimation() {
-    Timer(const Duration(milliseconds: 300), () {
-      setState(() {
-        _opacity = 1.0;
-      });
+  Future<void> _startAnimationAndFetchData() async {
+    if (FirebaseService().userControll()) {
+      _model = await FirebaseService().getUser();
+    }
+
+    await Future.delayed(const Duration(milliseconds: 150)); // Animasyonun başlangıcını bekliyoruz
+
+    setState(() {
+      _opacity = 1.0;
     });
+
+    await Future.delayed(const Duration(seconds: 2)); // Animasyonun tamamlanmasını bekliyoruz
   }
 
   @override

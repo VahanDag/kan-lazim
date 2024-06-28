@@ -9,11 +9,13 @@ class CustomTextField extends StatefulWidget {
     this.isPassword,
     required this.controller,
     this.validator,
+    this.keyboardType, // Klavye türü parametresi eklendi
   });
   final String labelText;
   final bool? isPassword;
   final TextEditingController controller;
   final String? Function(String? value)? validator;
+  final TextInputType? keyboardType; // Klavye türü parametresi eklendi
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -27,6 +29,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       validator: widget.validator,
       controller: widget.controller,
       obscureText: (widget.isPassword ?? false) ? (_isSecure ? true : false) : false,
+      keyboardType: widget.keyboardType, // Klavye türü parametresi geçirildi
       decoration: InputDecoration(
           suffixIcon: (widget.isPassword ?? false)
               ? GestureDetector(

@@ -3,7 +3,13 @@ part of 'blood_request.dart';
 Widget _textField({required TextEditingController controller, TextInputType? keyboardType, int? maxLines}) {
   return Padding(
     padding: PaddingBorderConstant.paddingOnlyLeftHigh,
-    child: TextField(
+    child: TextFormField(
+      validator: (value) {
+        if (value?.isEmpty ?? true) {
+          return "Bu alan boş olamaz";
+        }
+        return null;
+      },
       controller: controller,
       keyboardType: keyboardType,
       textInputAction: TextInputAction.next,
