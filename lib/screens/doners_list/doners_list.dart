@@ -95,7 +95,7 @@ class _BloodDonersState extends State<BloodDoners> {
                             itemCount: items?.length ?? 0,
                             itemBuilder: (BuildContext context, int index) {
                               final item = items![index];
-                              return requestCard(context: context, item: item, isOwnerPage: false);
+                              return RequestCard(item: item, isOwnerPage: false);
                             },
                           );
                         }

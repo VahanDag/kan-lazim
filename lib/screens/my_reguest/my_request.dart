@@ -43,8 +43,7 @@ class _MyRequestState extends State<MyRequest> {
                     itemBuilder: (context, index) {
                       final item = items![index];
                       debugPrint(item.docId);
-                      return requestCard(
-                        context: context,
+                      return RequestCard(
                         item: item,
                         isOwnerPage: true,
                         isRemoved: (state) {
