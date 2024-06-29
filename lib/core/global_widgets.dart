@@ -8,8 +8,7 @@ Container bloodTopContainer({required BuildContext context, required Widget chil
     alignment: Alignment.center,
     height: context.deviceHeight * 0.22,
     decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
-        color: Color(0xffe8315b)),
+        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20)), color: Color(0xffe8315b)),
     child: Row(
       children: [
         child,
@@ -69,8 +68,7 @@ class SearchCityAndStateState extends State<SearchCityAndState> {
     final query = _searchController.text.toLowerCase();
     debugPrint("quesry: $query");
     setState(() {
-      _filteredDistricts =
-          ProjectConstants.cityDistricts[widget.city]!.where((district) => district.toLowerCase().contains(query)).toList();
+      _filteredDistricts = ProjectConstants.cityDistricts[widget.city]!.where((district) => district.toLowerCase().contains(query)).toList();
     });
   }
 
@@ -83,15 +81,14 @@ class SearchCityAndStateState extends State<SearchCityAndState> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: context.deviceHeight * 0.85,
+      height: context.deviceHeight * 0.95,
       child: Column(
         children: [
           Padding(
             padding: PaddingBorderConstant.paddingAllHigh,
             child: SearchBar(
               controller: _searchController,
-              hintText:
-                  "${widget.isSearchCity ? 'Şehir' : 'İlçe'} adı girin ${!widget.isSearchCity ? '(${widget.city})' : ''}",
+              hintText: "${widget.isSearchCity ? 'Şehir' : 'İlçe'} adı girin ${!widget.isSearchCity ? '(${widget.city})' : ''}",
               trailing: const [Icon(Icons.search)],
             ),
           ),

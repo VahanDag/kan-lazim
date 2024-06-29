@@ -6,7 +6,7 @@ import 'package:kan_lazim/core/extensions.dart';
 import 'package:kan_lazim/core/padding_borders.dart';
 import 'package:kan_lazim/models/user_model.dart';
 import 'package:kan_lazim/screens/auth/auth_widgets.dart';
-import 'package:kan_lazim/screens/global_widgets.dart';
+import 'package:kan_lazim/core/global_widgets.dart';
 import 'package:kan_lazim/screens/home/bottom_bar.dart';
 import 'package:kan_lazim/services/firebase_service.dart';
 

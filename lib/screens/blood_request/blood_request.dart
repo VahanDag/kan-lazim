@@ -11,7 +11,7 @@ import 'package:kan_lazim/core/padding_borders.dart';
 import 'package:kan_lazim/core/useful_functions.dart';
 import 'package:kan_lazim/models/request_model.dart';
 import 'package:kan_lazim/models/user_model.dart';
-import 'package:kan_lazim/screens/global_widgets.dart';
+import 'package:kan_lazim/core/global_widgets.dart';
 import 'package:kan_lazim/screens/home/bottom_bar.dart';
 import 'package:kan_lazim/services/firebase_service.dart';
 
@@ -86,8 +86,7 @@ class _BloodRequestState extends State<BloodRequest> {
                   key: _formKey,
                   child: Column(
                     children: [
-                      RequestBloodField(
-                          fieldTitle: "İsim (İhtiyaç sahibi kim?)", field: _textField(controller: _nameController)),
+                      RequestBloodField(fieldTitle: "İsim (İhtiyaç sahibi kim?)", field: _textField(controller: _nameController, maxLength: 20)),
                       RequestBloodField(
                         fieldTitle: "Kan Grubu",
                         field: DropdownButton<String>(
@@ -112,8 +111,13 @@ class _BloodRequestState extends State<BloodRequest> {
                         ),
                       ),
                       RequestBloodField(
-                          fieldTitle: "Kaç Ünite Lazım?",
-                          field: _textField(keyboardType: TextInputType.number, controller: _bloodUnitController)),
+                        fieldTitle: "Kaç Ünite Lazım?",
+                        field: _textField(
+                          keyboardType: TextInputType.number,
+                          controller: _bloodUnitController,
+                          maxLength: 2,
+                        ),
+                      ),
                       Padding(
                         padding: PaddingBorderConstant.paddingVertical,
                         child: Column(
@@ -122,8 +126,7 @@ class _BloodRequestState extends State<BloodRequest> {
                               padding: PaddingBorderConstant.paddingVertical,
                               child: Text(
                                 "Aciliyet",
-                                style: context.textTheme.titleMedium
-                                    ?.copyWith(fontWeight: FontWeight.bold, color: Colors.grey.shade600),
+                                style: context.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, color: Colors.grey.shade600),
                               ),
                             ),
                             Row(
@@ -192,10 +195,9 @@ class _BloodRequestState extends State<BloodRequest> {
                           ),
                         ),
                       ),
-                      RequestBloodField(fieldTitle: "Hastane", field: _textField(controller: _hospitalController)),
-                      RequestBloodField(fieldTitle: "Başlık", field: _textField(controller: _titleController)),
-                      RequestBloodField(
-                          fieldTitle: "Açıklama", field: _textField(maxLines: 4, controller: _descriptionController)),
+                      RequestBloodField(fieldTitle: "Hastane", field: _textField(controller: _hospitalController, maxLength: 30)),
+                      RequestBloodField(fieldTitle: "Başlık", field: _textField(controller: _titleController, maxLength: 20)),
+                      RequestBloodField(fieldTitle: "Açıklama", field: _textField(maxLines: 4, controller: _descriptionController, maxLength: 50)),
                       CustomMainButton(
                           margin: PaddingBorderConstant.paddingVerticalHigh,
                           onPressed: () async {
@@ -227,8 +229,7 @@ class _BloodRequestState extends State<BloodRequest> {
                                     customSnackBar(context: context, title: "Bir sorun oluştu", isNegative: true);
                                   }
                                 } else {
-                                  customSnackBar(
-                                      context: context, title: "İhtiyaç duyulan kan grubunu seçiniz", isNegative: true);
+                                  customSnackBar(context: context, title: "İhtiyaç duyulan kan grubunu seçiniz", isNegative: true);
                                 }
                               } else {
                                 customSnackBar(context: context, title: "Lütfen il ve ilçe seçiniz", isNegative: true);

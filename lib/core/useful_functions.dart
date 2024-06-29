@@ -75,7 +75,7 @@ class _RequestCardState extends State<RequestCard> {
         await Share.shareXFiles([XFile(file.path)], text: '${widget.item.name} adına kan bağışına ihtiyacımız var!');
       }
     } catch (e) {
-      print('Error taking screenshot: $e');
+      debugPrint(e.toString());
     }
   }
 
@@ -84,10 +84,12 @@ class _RequestCardState extends State<RequestCard> {
     return RepaintBoundary(
       key: _globalKey,
       child: Container(
-        height: context.deviceHeight * 0.35,
+        height: context.deviceHeight * 0.30,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-            color: Colors.white, borderRadius: PaddingBorderConstant.borderRadius, border: Border.all(color: Colors.red)),
+            color: Colors.white,
+            borderRadius: PaddingBorderConstant.borderRadius,
+            border: Border.all(color: getUgencyColor(widget.item.ugency ?? ""))),
         margin: PaddingBorderConstant.paddingVertical,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -106,18 +108,14 @@ class _RequestCardState extends State<RequestCard> {
                         Container(
                           height: 100,
                           alignment: Alignment.center,
-                          width: context.deviceHeight * 0.2,
-                          decoration:
-                              BoxDecoration(color: Colors.red.shade100, borderRadius: PaddingBorderConstant.borderRadius),
+                          width: context.deviceHeight * 0.12,
+                          decoration: BoxDecoration(color: Colors.red.shade100, borderRadius: PaddingBorderConstant.borderRadius),
                         ),
                         Column(
                           children: [
                             Text(
                               widget.item.bloodType ?? "",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleLarge
-                                  ?.copyWith(fontWeight: FontWeight.bold, color: Colors.red),
+                              style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold, color: Colors.red),
                             ),
                             Text(
                               "${widget.item.unitAmount?.toInt()} Ünite",
@@ -151,6 +149,7 @@ class _RequestCardState extends State<RequestCard> {
                               ),
                               Expanded(
                                 child: Text(
+                                  maxLines: 1,
                                   widget.item.name ?? "",
                                   style: Theme.of(context).textTheme.bodyMedium,
                                 ),
@@ -203,7 +202,7 @@ class _RequestCardState extends State<RequestCard> {
                         },
                         child: Icon(
                           widget.isOwnerPage ? Icons.cancel_outlined : Icons.share,
-                          color: widget.isOwnerPage ? Colors.red : Colors.red,
+                          color: widget.isOwnerPage ? Colors.red : getUgencyColor(widget.item.ugency ?? ""),
                         )),
                   )
                 ],
@@ -215,9 +214,9 @@ class _RequestCardState extends State<RequestCard> {
             ),
             const Spacer(),
             Container(
-              height: 20,
+              height: 15,
               width: double.infinity,
-              decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(10)),
+              decoration: BoxDecoration(color: getUgencyColor(widget.item.ugency ?? ""), borderRadius: BorderRadius.circular(10)),
             )
           ],
         ),

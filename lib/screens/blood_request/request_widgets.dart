@@ -1,9 +1,15 @@
 part of 'blood_request.dart';
 
-Widget _textField({required TextEditingController controller, TextInputType? keyboardType, int? maxLines}) {
+Widget _textField({
+  required TextEditingController controller,
+  TextInputType? keyboardType,
+  int? maxLines,
+  int? maxLength,
+}) {
   return Padding(
     padding: PaddingBorderConstant.paddingOnlyLeftHigh,
     child: TextFormField(
+      maxLength: maxLength,
       validator: (value) {
         if (value?.isEmpty ?? true) {
           return "Bu alan boş olamaz";
@@ -37,9 +43,10 @@ class RequestBloodField extends StatelessWidget {
         children: [
           _formTitle(context, fieldTitle),
           Card(
-              elevation: 7,
-              margin: PaddingBorderConstant.paddingOnlyTopLow,
-              child: SizedBox(width: context.deviceWidth, child: field)),
+            elevation: 7,
+            margin: PaddingBorderConstant.paddingOnlyTopLow,
+            child: SizedBox(width: context.deviceWidth, child: field),
+          ),
         ],
       ),
     );

@@ -1,10 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:kan_lazim/core/extensions.dart';
+import 'package:kan_lazim/core/padding_borders.dart';
 import 'package:kan_lazim/core/useful_functions.dart';
 import 'package:kan_lazim/models/request_model.dart';
 import 'package:kan_lazim/models/user_model.dart';
-import 'package:kan_lazim/screens/global_widgets.dart';
+import 'package:kan_lazim/core/global_widgets.dart';
 import 'package:kan_lazim/services/firebase_service.dart';
 
 class BloodDoners extends StatefulWidget {
@@ -51,29 +52,33 @@ class _BloodDonersState extends State<BloodDoners> {
                         color: Colors.white,
                       ),
                     ),
-                    TextButton.icon(
-                        icon: const Icon(
-                          Icons.arrow_drop_down_rounded,
-                          size: 35,
-                          color: Colors.white,
-                        ),
-                        onPressed: () {
-                          showModalBottomSheet(
-                              isScrollControlled: true,
-                              context: context,
-                              builder: (context) => SearchCityAndState(
-                                    isSearchCity: true,
-                                    selectedCity: (selectedCity) {
-                                      setState(() {
-                                        _selectedCity = selectedCity ?? "";
-                                      });
-                                    },
-                                  ));
-                        },
-                        label: Text(
-                          "Şehir değiştir",
-                          style: context.textTheme.titleMedium?.copyWith(color: Colors.white),
-                        ))
+                    Padding(
+                      padding: PaddingBorderConstant.paddingOnlyLeftMedium,
+                      child: TextButton.icon(
+                          iconAlignment: IconAlignment.end,
+                          icon: const Icon(
+                            Icons.arrow_drop_down_rounded,
+                            size: 35,
+                            color: Colors.white,
+                          ),
+                          onPressed: () {
+                            showModalBottomSheet(
+                                isScrollControlled: true,
+                                context: context,
+                                builder: (context) => SearchCityAndState(
+                                      isSearchCity: true,
+                                      selectedCity: (selectedCity) {
+                                        setState(() {
+                                          _selectedCity = selectedCity ?? "";
+                                        });
+                                      },
+                                    ));
+                          },
+                          label: Text(
+                            "Şehir değiştir",
+                            style: context.textTheme.titleMedium?.copyWith(color: Colors.white),
+                          )),
+                    )
                   ],
                 ))),
             Expanded(

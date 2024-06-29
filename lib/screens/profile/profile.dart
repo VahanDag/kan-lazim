@@ -74,23 +74,21 @@ class _ProfilePageState extends State<ProfilePage> {
             indent: 20,
             endIndent: 20,
           ),
-          SizedBox(
-            width: ContextExtension(context).deviceWidth * 0.9,
-            height: ContextExtension(context).deviceHeight * 0.2,
-            child: Card(
-                shadowColor: ColorsConstant.redFrame,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Profilewidget(
-                        icon: Icons.location_on, text: 'İl/İlçe:', text2: '${widget.model.city}/ ${widget.model.district}'),
-                    Profilewidget(icon: Icons.email, text: 'Email:', text2: widget.model.email ?? ""),
-                    Profilewidget(
-                        icon: Icons.water_drop_rounded,
-                        text: "Kan Grubu",
-                        text2: widget.model.bloodType ?? "Kan Grubu Girilmedi"),
-                  ],
-                )),
+          Card(
+            shadowColor: ColorsConstant.redFrame,
+            child: Container(
+              padding: PaddingBorderConstant.paddingHorizontal,
+              width: ContextExtension(context).deviceWidth * 0.9,
+              height: ContextExtension(context).deviceHeight * 0.2,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Profilewidget(icon: Icons.location_on, text: 'İl/İlçe:', text2: '${widget.model.city}/ ${widget.model.district}'),
+                  Profilewidget(icon: Icons.email, text: 'Email:', text2: widget.model.email ?? ""),
+                  Profilewidget(icon: Icons.water_drop_rounded, text: "Kan Grubu", text2: widget.model.bloodType ?? "Kan Grubu Girilmedi"),
+                ],
+              ),
+            ),
           ),
           const SizedBox(height: 10),
           CustomMainButton(

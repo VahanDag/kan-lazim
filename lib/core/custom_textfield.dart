@@ -29,7 +29,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       validator: widget.validator,
       controller: widget.controller,
       obscureText: (widget.isPassword ?? false) ? (_isSecure ? true : false) : false,
-      keyboardType: widget.keyboardType, // Klavye türü parametresi geçirildi
+      keyboardType: widget.keyboardType,
       decoration: InputDecoration(
           suffixIcon: (widget.isPassword ?? false)
               ? GestureDetector(
