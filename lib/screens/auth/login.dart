@@ -91,10 +91,10 @@ class _LoginState extends State<Login> {
                               final getModel = await FirebaseService().getUser();
                               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BottomNavBar(userModel: getModel!)));
                             } else {
-                              customSnackBar(context: context, title: "Şifre veya e-posta yanlış", isNegative: true);
+                              customSnackBar(context: context, title: "E-posta Adresinizi doğrulayın", isNegative: true);
                             }
                           } else {
-                            customSnackBar(context: context, title: "E-posta adresinizi doğrulayın", isNegative: true);
+                            customSnackBar(context: context, title: "Şifre veya e-posta yanlış", isNegative: true);
                           }
                         }
                       },

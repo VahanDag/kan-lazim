@@ -165,12 +165,37 @@ class _RegisterState extends State<Register> {
                                 context: context,
                                 builder: (context) {
                                   return Container(
-                                    child: const Center(
-                                      child: Text("Kayıt Başarılı Lütfen E-Postanızı Doğrulayın ve Giriş Yapın"),
+                                    padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+                                    child: const Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Icon(
+                                          Icons.check_circle,
+                                          color: Colors.green,
+                                          size: 60,
+                                        ),
+                                        SizedBox(height: 20),
+                                        Text(
+                                          "Kayıt Başarılı",
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        SizedBox(height: 10),
+                                        Text(
+                                          "Lütfen E-Postanızı Doğrulayın ve Giriş Yapın",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   );
                                 },
                               );
+
                               // Navigator.push(context, MaterialPageRoute(builder: (context) => BottomNavBar(userModel: userModel)));
                             } else {
                               const snackBar = SnackBar(backgroundColor: ColorsConstant.red, content: Center(child: Text("Birşeyler ters gitti")));
