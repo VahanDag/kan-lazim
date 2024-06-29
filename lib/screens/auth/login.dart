@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kan_lazim/core/colors.dart';
 import 'package:kan_lazim/core/custom_button.dart';
+import 'package:kan_lazim/core/custom_snackbar.dart';
 import 'package:kan_lazim/core/custom_textfield.dart';
 import 'package:kan_lazim/core/extensions.dart';
 import 'package:kan_lazim/screens/auth/auth_widgets.dart';
@@ -70,27 +71,30 @@ class _LoginState extends State<Login> {
                     labelText: "Şifre",
                     isPassword: true,
                   ),
-                  // Align(
-                  //     alignment: Alignment.centerRight,
-                  //     child: TextButton(
-                  //         onPressed: () {},
-                  //         child: Text(
-                  //           "Şifremi unuttum?",
-                  //           style: context.textTheme.titleSmall?.copyWith(color: ColorsConstant.redFrame),
-                  //         ))),
+                  Align(
+                      alignment: Alignment.centerRight,
+                      child: TextButton(
+                          onPressed: () {
+                            _showPasswordResetDialog(context);
+                          },
+                          child: Text(
+                            "Şifremi unuttum?",
+                            style: context.textTheme.titleSmall?.copyWith(color: ColorsConstant.redFrame),
+                          ))),
                   const SizedBox(height: 50),
                   CustomMainButton(
                       onPressed: () async {
                         if (_globalKey.currentState?.validate() ?? false) {
                           final login = await FirebaseService().login(email: _emailController.text.trim(), password: _passwordController.text.trim());
-
-                          if (login) {
-                            final getModel = await FirebaseService().getUser();
-                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BottomNavBar(userModel: getModel)));
+                          if (FirebaseService().isEmailVerify()) {
+                            if (login) {
+                              final getModel = await FirebaseService().getUser();
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BottomNavBar(userModel: getModel!)));
+                            } else {
+                              customSnackBar(context: context, title: "Şifre veya e-posta yanlış", isNegative: true);
+                            }
                           } else {
-                            const snackBar = SnackBar(backgroundColor: ColorsConstant.red, content: Center(child: Text("Şifre veya e-posta yanlış")));
-
-                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                            customSnackBar(context: context, title: "E-posta adresinizi doğrulayın", isNegative: true);
                           }
                         }
                       },
@@ -106,4 +110,55 @@ class _LoginState extends State<Login> {
       ),
     );
   }
+}
+
+void _showPasswordResetDialog(BuildContext context) {
+  TextEditingController resetEmailController = TextEditingController();
+  showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: const Text("Şifre Sıfırlama"),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text("Şifre sıfırlama bağlantısını almak için e-posta adresinizi girin."),
+            const SizedBox(height: 20),
+            CustomTextField(
+              controller: resetEmailController,
+              labelText: "E-posta adresi",
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text("İptal"),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              if (isValidEmail(resetEmailController.text) == null) {
+                FirebaseService().resetPassword(resetEmailController.text.trim());
+                Navigator.of(context).pop();
+                customSnackBar(
+                  context: context,
+                  title: "E-posta adresinize şifre sıfırlama bağlantısı gönderildi.",
+                  isNegative: false,
+                );
+              } else {
+                customSnackBar(
+                  context: context,
+                  title: "Geçersiz e-posta adresi",
+                  isNegative: true,
+                );
+              }
+            },
+            child: const Text("Gönder"),
+          ),
+        ],
+      );
+    },
+  );
 }
